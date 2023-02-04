@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/globaladmissions/static/css/main.080d1215.css",
-    "main.js": "/globaladmissions/static/js/main.bced08d4.js",
+    "main.js": "/globaladmissions/static/js/main.84d2be1d.js",
     "index.html": "/globaladmissions/index.html",
     "main.080d1215.css.map": "/globaladmissions/static/css/main.080d1215.css.map",
-    "main.bced08d4.js.map": "/globaladmissions/static/js/main.bced08d4.js.map"
+    "main.84d2be1d.js.map": "/globaladmissions/static/js/main.84d2be1d.js.map"
   },
   "entrypoints": [
     "static/css/main.080d1215.css",
-    "static/js/main.bced08d4.js"
+    "static/js/main.84d2be1d.js"
   ]
 }
