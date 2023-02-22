@@ -1,31 +1,19 @@
-import React from "react";
 import styled from "styled-components";
-import PopularItem from "./PopularItem";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Card, Typography } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
+import PopularList from "./PopularList";
 
 function RightSideBar() {
   return (
     <div className="row">
-      <div className="col-12 px-3">
+      <div className="col-12">
         <PopularCard>
           <Title>Popular this week</Title>
-          <PopularItem />
-          <PopularItem />
-          <PopularItem />
-          <PopularItem />
-          <PopularItem />
-          <ShowMore>
-            <KeyboardArrowDownIconCustom />
-            <span className="px-2">Show More</span>
-          </ShowMore>
+          <PopularList />
         </PopularCard>
         <SignupCard>
-          <LoginIcon />
+          <img alt="" src="/globaladmissions/images/Login.png" />
           <div>
-            <Typography variant="body1">Signup</Typography>
-            <Typography variant="body2">for newsletter</Typography>
+            <span variant="body1">Signup</span>
+            <span variant="body2">for newsletter</span>
           </div>
           <Btn variant="contained">Signup</Btn>
         </SignupCard>
@@ -33,7 +21,6 @@ function RightSideBar() {
     </div>
   );
 }
-
 export default RightSideBar;
 
 const Title = styled.div`
@@ -62,11 +49,7 @@ const Btn = styled.button`
   color: white;
 `;
 
-const KeyboardArrowDownIconCustom = styled(KeyboardArrowDownIcon)`
-  cursor: pointer;
-`;
-
-const SignupCard = styled(Card)`
+const SignupCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.04);
   padding: 10px 3px;
   margin-top: 30px;
@@ -80,11 +63,31 @@ const SignupCard = styled(Card)`
   box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.75) !important;
   -webkit-box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.75);
+  div {
+    display: flex;
+    flex-direction: column;
+    span:first-child {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #334155;
+    }
+    span:last-child {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #64748b;
+    }
+  }
 `;
 
-const PopularCard = styled(Card)`
+const PopularCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.04);
-  padding: 10px 3px;
+  padding: 10px 8px;
   margin-top: 30px;
   border: 1px solid rgba(0, 0, 0, 0.07);
   box-shadow: 0px 1px 9px -3px rgba(0, 0, 0, 0.75) !important;
@@ -93,11 +96,4 @@ const PopularCard = styled(Card)`
   &:hover {
     background-color: rgba(0, 0, 0, 0.03);
   }
-`;
-
-const ShowMore = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
 `;

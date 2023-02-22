@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  data: "blog",
+  data: "Blog",
 };
 
 const activeBlogSlice = createSlice({

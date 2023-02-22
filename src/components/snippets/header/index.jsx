@@ -1,38 +1,49 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CustomizedInputBase from "./search";
+import Searchbar from "./searbar";
 function Header() {
+  let navigate = useNavigate(0);
+
   return (
     <Container className="col-12">
-      <spanner>
-        <img alt="logo" src="/images/logo.png" />
+      <spanner className="d-block d-md-none">
+        <img
+          onClick={(e) => {
+            navigate("/globaladmissions/");
+          }}
+          alt="logo"
+          src="/globaladmissions/images/small.png"
+        />
       </spanner>
+      <spanner className="d-none d-md-block">
+        <img
+          onClick={(e) => {
+            navigate("/globaladmissions/");
+          }}
+          alt="logo"
+          src="/globaladmissions/images/logo.png"
+        />
+      </spanner>
+
       <SearchBar>
-        <CustomizedInputBase />
+        <Searchbar />
       </SearchBar>
-      <MenuItems>
-        <BellImg alt="logo" src="/images/assets/bell.png" />
 
-        <AccountImage>
-          <img
-            style={{ height: "25px", width: "25px" }}
-            alt="logo"
-            src="/images/student.png"
-          />
-        </AccountImage>
-
-        <Btn size="small" variant="contained">
-          <span>Get Started</span>
-        </Btn>
-      </MenuItems>
+      <AccountImage className="d-none d-md-block">
+        <img
+          style={{ height: "25px", width: "25px" }}
+          alt="logo"
+          src="/globaladmissions/images/user.png"
+        />
+      </AccountImage>
+      <Btn size="small" variant="contained mx-4" className="d-none d-md-block">
+        <span>Get Started</span>
+      </Btn>
     </Container>
   );
 }
 
 export default Header;
-
-const BellImg = styled.img`
-  cursor: pointer;
-`;
 
 const AccountImage = styled.div`
   height: 35px;
@@ -40,22 +51,12 @@ const AccountImage = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.09);
   cursor: pointer;
   padding: 3px;
-  background: url(/images/student.png);
+  background: url(/globaladmissions/images/student.png);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0px 3px;
-`;
-
-const MenuItems = styled.div`
-  display: flex;
-  align-items: space-around;
-  align-items: center;
-  @media (max-width: 800px) {
-    display: none;
-    width: 0vw;
-  }
 `;
 
 const Btn = styled.button`
@@ -88,4 +89,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 6px;
+
+  img {
+    cursor: pointer;
+  }
 `;

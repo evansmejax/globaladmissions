@@ -37,13 +37,14 @@ const LinkItem = styled.div`
   cursor: pointer;
   color: #64748b;
   &:hover {
-    color: blue;
+    color: var(--bs-blue);
   }
 `;
 
 const FooterDiv = styled.div`
   background: rgba(0, 0, 0, 0.08);
   margin-bottom: 30px !important;
+  border-radius: 20px;
 `;
 
 const FooterWrapper = styled.div`

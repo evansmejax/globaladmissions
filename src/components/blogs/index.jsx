@@ -1,21 +1,30 @@
 import styled from "styled-components";
 import ArticleItem from "./ArticleItem";
 import NewsItem from "./NewsItem";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectActiveBlogCategories,
   setActiveBlogCategories,
 } from "features/activeBlogCategoriesSlice";
+import { slice } from "lodash";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import PaginationSize from "./Pagination";
+import { useEffect, useState } from "react";
+import newslist from "mockup/news";
+import articleslist from "mockup/articles";
+import lessnewslist from "mockup/lessnewslist";
+import categorieslist from "mockup/categories";
+import ScrollToTop from "components/snippets/footer/ScrollToTop";
+import RightSideBar from "components/snippets/sidebar/RightSidebar";
+import QuickMenu from "./QuickMenu";
+
 const MoreHorizIconCustom = styled(MoreHorizIcon)`
   cursor: pointer;
 `;
 
-const KeyboardArrowRightIconCustom = styled(KeyboardArrowRightIcon)`
-  padding: 3px;
+const ArrowWrapper = styled.span`
+  height: 32px;
+  width: 32px;
+  padding: 5px 10px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   margin-right: 3px;
   border-radius: 3px;
@@ -23,89 +32,65 @@ const KeyboardArrowRightIconCustom = styled(KeyboardArrowRightIcon)`
   &:hover {
     border: 1px solid rgba(0, 0, 0, 0.09);
   }
-`;
-
-const KeyboardArrowLeftIconCustom = styled(KeyboardArrowLeftIcon)`
-  padding: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  margin-right: 3px;
-  border-radius: 3px;
-  cursor: pointer;
-  &:hover {
-    border: 1px solid rgba(0, 0, 0, 0.09);
+  img {
+    height: 10px;
+    width: 5px;
   }
 `;
-
-const newsItems = [
-  {
-    title: "9 fascinating things about christmans",
-    program: "case study",
-    image: "/images/news/n1.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "case-study",
-  },
-  {
-    title: "9 fascinating things about christmans",
-    program: "programs",
-    image: "/images/news/n2.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "programs",
-  },
-  {
-    title: "9 fascinating things about christmans",
-    program: "MBBS",
-    image: "/images/news/n3.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "mbbs",
-  },
-  {
-    title: "9 fascinating things about christmans",
-    program: "MBA",
-    image: "/images/news/n4.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "mba",
-  },
-  {
-    title: "9 fascinating things about christmans",
-    program: "case study",
-    image: "/images/news/n5.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "case-study",
-  },
-];
-
-const articleItems = [
-  {
-    title: "9 fascinating things about christmans",
-    program: "case study",
-    image: "/images/articles/p1.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "case-study",
-  },
-  {
-    title: "9 fascinating things about christmans",
-    program: "programs",
-    image: "/images/articles/p2.png",
-    author: "Christine Chiu",
-    date: "Nov 24, 2022",
-    length: "8 min read",
-    blogItem: "programs",
-  },
-];
 
 function Blogs() {
+  const [activeArticleCount, setActiveArticleCount] = useState(0);
+  const [activeCategoryCount, setActiveCategoryCount] = useState(0);
+  const [post, setPost] = useState([]);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [index, setIndex] = useState(3);
+  const initialPosts = slice(post, 0, index);
+  const getData = () => {
+    setPost(newslist);
+  };
+  const loadMore = () => {
+    setIndex(index + 3);
+    console.log(index);
+    if (index >= post.length) {
+      setIsCompleted(true);
+    } else {
+      setIsCompleted(false);
+    }
+  };
+
+  function increment() {
+    let newCount = activeArticleCount + 1;
+    if (newCount !== articleslist.length) {
+      const newActive = newCount % articleslist.length;
+      setActiveArticleCount(Math.abs(newActive));
+    }
+  }
+  function decrement() {
+    let newCount = activeArticleCount - 1;
+    if (newCount !== -1) {
+      const newActive = newCount % articleslist.length;
+      setActiveArticleCount(Math.abs(newActive));
+    }
+  }
+
+  function incrementCategory() {
+    let newCount = activeCategoryCount + 2;
+    if (newCount <= categorieslist.length - 1) {
+      setActiveCategoryCount(Math.abs(newCount));
+    }
+  }
+  function decrementCategory() {
+    let newCount = activeCategoryCount - 2;
+    if (newCount >= 0) {
+      // const newActive = newCount % 2;
+      setActiveCategoryCount(Math.abs(newCount));
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   let dispatch = useDispatch();
   let activeCategories = useSelector(selectActiveBlogCategories);
   console.log(activeCategories);
@@ -126,25 +111,125 @@ function Blogs() {
     <div className="row">
       <div className="col-12 px-4">
         <div className="row">
+          <div className="col-12 pt-3 d-none d-md-block">
+            <TitleWrapper>
+              <SectionTitle>Blog</SectionTitle>
+            </TitleWrapper>
+          </div>
           <div className="col-12 pt-3">
             <TitleWrapper>
               <Title>Recent Article</Title>
+
               <span>
-                <KeyboardArrowLeftIconCustom />
-                <KeyboardArrowRightIconCustom />
+                <ArrowWrapper
+                  onClick={(e) => {
+                    increment();
+                  }}
+                >
+                  <img alt="" src="/globaladmissions/images/arrowleft.png" />
+                </ArrowWrapper>
+                <ArrowWrapper
+                  onClick={(e) => {
+                    decrement();
+                  }}
+                >
+                  <img alt="" src="/globaladmissions/images/arrowright.png" />
+                </ArrowWrapper>
               </span>
             </TitleWrapper>
           </div>
-          <div className="row">
+
+          <div className="row d-block d-md-none">
             <div className="col-12">
               <div className="row">
-                {articleItems.map((d) => {
+                <ArticleItem data={articleslist[activeArticleCount]} />
+              </div>
+            </div>
+          </div>
+
+          <div className="row d-none d-md-block">
+            <div className="col-12">
+              <div className="row">
+                {articleslist.map((d) => {
                   return <ArticleItem data={d} />;
                 })}
               </div>
             </div>
           </div>
         </div>
+        <div className="row">
+          <div className="col-12">
+            <TitleWrapper>
+              <Title>Categories</Title>
+              <span>
+                <ArrowWrapper
+                  onClick={(e) => {
+                    decrementCategory();
+                  }}
+                >
+                  <img alt="" src="/globaladmissions/images/arrowleft.png" />
+                </ArrowWrapper>
+                <ArrowWrapper
+                  onClick={(e) => {
+                    incrementCategory();
+                  }}
+                >
+                  <img alt="" src="/globaladmissions/images/arrowright.png" />
+                </ArrowWrapper>
+              </span>
+            </TitleWrapper>
+
+            <div className="row d-none d-md-block">
+              <CategoryWrapper className="col-12 py-4">
+                {categorieslist.map((cat) => {
+                  return (
+                    <CategoryItem>
+                      <CategoryBox
+                        style={{
+                          background: `url(${cat.bg})`,
+                        }}
+                      >
+                        <img alt="" src={cat.image} />
+                      </CategoryBox>
+                      <CategoryDescription>{cat.program}</CategoryDescription>
+                    </CategoryItem>
+                  );
+                })}
+              </CategoryWrapper>
+            </div>
+            <div className="row d-block d-md-none">
+              <CategoryWrapper className="col-12 py-4">
+                {categorieslist
+                  .slice(activeCategoryCount, activeCategoryCount + 2)
+                  .map((cat) => {
+                    return (
+                      <CategoryItem>
+                        <CategoryBox
+                          style={{
+                            background: `url(${cat.bg})`,
+                          }}
+                        >
+                          <img alt="" src={cat.image} />
+                        </CategoryBox>
+                        <CategoryDescription>{cat.program}</CategoryDescription>
+                      </CategoryItem>
+                    );
+                  })}
+              </CategoryWrapper>
+              <ScrollWrapper>
+                <ScrollToTop />
+              </ScrollWrapper>
+            </div>
+          </div>
+        </div>
+
+        <div className="row d-block d-md-none">
+          <div className="col-12 py-3">
+            <QuickMenu />
+            <RightSideBar />
+          </div>
+        </div>
+
         <div className="row">
           <div className="col-12">
             <Title>All News</Title>
@@ -197,68 +282,68 @@ function Blogs() {
           <div className="row">
             <div className="col-12">
               <div className="row">
-                {newsItems.map((d) => {
+                {lessnewslist.map((d) => {
                   return <NewsItem data={d} />;
                 })}
 
                 <CovidBlock>
+                  <img
+                    className="logo-icon1"
+                    alt=""
+                    src="/globaladmissions/images/logo-group.png"
+                  />
+                  <img
+                    className="logo-icon2"
+                    alt=""
+                    src="/globaladmissions/images/logo-group.png"
+                  />
+                  <img
+                    className="logo-icon3"
+                    alt=""
+                    src="/globaladmissions/images/logo-group.png"
+                  />
+                  <img
+                    className="logo-icon4"
+                    alt=""
+                    src="/globaladmissions/images/logo-group.png"
+                  />
+                  <img
+                    className="logo-icon5"
+                    alt=""
+                    src="/globaladmissions/images/logo-group.png"
+                  />
+                  <img
+                    className="logo-icon6"
+                    alt=""
+                    src="/globaladmissions/images/logo-group.png"
+                  />
                   <span>
-                    Foreigners guide to covid 19 Vaccination in Shangai
+                    <LeftSection>
+                      <UpperPart className="apply">
+                        Apply to universities
+                      </UpperPart>
+                      <LowerPart>
+                        <span className="online">ONLINE</span>
+                        <img alt="" src="/globaladmissions/images/online.png" />
+                      </LowerPart>
+                    </LeftSection>
                   </span>
 
-                  <Btn style={{ textTransform: "capitalize" }}>Read More</Btn>
+                  <Btn style={{ textTransform: "capitalize" }}>Apply Now</Btn>
                 </CovidBlock>
+                <SchoolIconsWrapper></SchoolIconsWrapper>
 
-                {newsItems.map((d) => {
-                  return <NewsItem data={d} />;
+                {initialPosts.map((item, id) => {
+                  return <NewsItem data={item} />;
                 })}
+                <div className="text-center mt-3 mb-5">
+                  {isCompleted ? (
+                    <></>
+                  ) : (
+                    <MoreBtn onClick={loadMore}>Show More </MoreBtn>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <PaginationWrapper className="col-12">
-            <span>Showing 1 to 20 of 120 results</span>
-            <PaginationSize />
-          </PaginationWrapper>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <Title>Categories</Title>
-            <div className="row">
-              <CategoryWrapper className="col-12 py-4">
-                <CategoryItem>
-                  <CategoryBox style={{ background: "url('/images/c1.png')" }}>
-                    <img alt="" src="/images/categories/v1.png" />
-                  </CategoryBox>
-                  <CategoryDescription>MBA</CategoryDescription>
-                </CategoryItem>
-                <CategoryItem>
-                  <CategoryBox style={{ background: "url('/images/c2.png')" }}>
-                    <img alt="" src="/images/categories/v2.png" />
-                  </CategoryBox>
-                  <CategoryDescription>MBBS</CategoryDescription>
-                </CategoryItem>
-                <CategoryItem>
-                  <CategoryBox style={{ background: "url('/images/c3.png')" }}>
-                    <img alt="" src="/images/categories/v3.png" />
-                  </CategoryBox>
-                  <CategoryDescription>Universities</CategoryDescription>
-                </CategoryItem>
-                <CategoryItem>
-                  <CategoryBox style={{ background: "url('/images/c4.png')" }}>
-                    <img alt="" src="/images/categories/v4.png" />
-                  </CategoryBox>
-                  <CategoryDescription>Student Experiences</CategoryDescription>
-                </CategoryItem>
-                <CategoryItem>
-                  <CategoryBox style={{ background: "url('/images/c5.png')" }}>
-                    <img alt="" src="/images/categories/v5.png" />
-                  </CategoryBox>
-                  <CategoryDescription>Language programs</CategoryDescription>
-                </CategoryItem>
-              </CategoryWrapper>
             </div>
           </div>
         </div>
@@ -269,11 +354,48 @@ function Blogs() {
 
 export default Blogs;
 
-const PaginationWrapper = styled.div`
+const ScrollWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -30px;
+`;
+
+const LeftSection = styled.div``;
+const LowerPart = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  img {
+    height: 30px;
+    margin-left: 10px;
+  }
+  span:first-child {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+  img {
+  }
+`;
+const UpperPart = styled.div`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #bfdbfe;
+`;
+
+const MoreBtn = styled.button`
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: white;
+  &:hover {
+    color: var(--bs-blue);
+  }
 `;
 
 const Category = styled.span`
@@ -285,7 +407,7 @@ const Category = styled.span`
   cursor: pointer;
   text-align: center;
   min-width: 100px;
-  background: ${(props) => (props.active ? `blue` : `white`)};
+  background: ${(props) => (props.active ? `var(--bs-blue)` : `white`)};
   color: ${(props) => (props.active ? `white` : ``)};
 `;
 
@@ -298,7 +420,7 @@ const CategoryBar = styled.div`
 
 const Btn = styled.button`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
   padding: 5px 24px 5px;
   gap: 10px;
@@ -322,9 +444,11 @@ const TitleWrapper = styled.div`
 `;
 
 const CovidBlock = styled.div`
+  position: relative;
   width: 100%;
   padding: 20px;
-  background: url("/images/slides/slide1.png");
+  background: url("/globaladmissions/images/slides/slide1.png");
+  background-size: cover;
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -337,18 +461,84 @@ const CovidBlock = styled.div`
     font-size: 20px;
     line-height: 28px;
   }
+  .logo-icon1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  .logo-icon2 {
+    position: absolute;
+    top: 55%;
+    left: 55%;
+  }
+  .logo-icon3 {
+    position: absolute;
+    top: 45%;
+    left: 58%;
+  }
+  .logo-icon4 {
+    position: absolute;
+    top: 58%;
+    left: 58%;
+  }
+  .logo-icon5 {
+    position: absolute;
+    top: 27%;
+    left: 79%;
+  }
+  .logo-icon6 {
+    position: absolute;
+    top: 82%;
+    left: 88%;
+  }
+  @media (max-width: 800px) {
+    font-size: 30px;
+    padding: 20px;
+    flex-direction: column;
+    button {
+      margin-top: 10px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .apply {
+      font-size: 30px !important;
+      padding: 20px 0px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+    }
+    .online {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+`;
+
+const SchoolIconsWrapper = styled.div`
+  background: red;
 `;
 
 const CategoryWrapper = styled.div`
   display: flex;
   text-align: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin: 0px 4px;
 `;
 
 const CategoryItem = styled.div`
-  margin: 0px 10px;
+  margin: 5px 10px;
+  padding: 3px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+  }
 `;
 const CategoryBox = styled.div`
   height: 100px;
@@ -365,15 +555,22 @@ const CategoryDescription = styled.div`
   line-height: 20px;
   text-align: center;
   color: #334155;
+  padding: 5px 0px;
 `;
 
 const Title = styled.div`
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 600;
   border-radius: 6px;
   margin: 1px 0px;
-  font-weight: 600;
-  font-size: 24px;
   line-height: 32px;
   color: #334155;
+`;
+
+const SectionTitle = styled.div`
+  margin: 1px 0px;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  color: #0f172a;
 `;

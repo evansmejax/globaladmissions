@@ -1,13 +1,13 @@
-import { selectActiveBlog, setActiveBlog } from "features/activeBlogSlice";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { selectActiveBlog, setActiveBlog } from "features/activeBlogSlice";
 
-function LeftSideBar() {
+const FloatingFooter = () => {
   let activeProgram = useSelector(selectActiveBlog);
   let dispatch = useDispatch();
   return (
-    <div className="row">
-      <div className="col-12 px-3">
+    <BlogMenuContainer>
+      <MenuWrapper className="col-12">
         <Item
           onClick={(e) => {
             dispatch(setActiveBlog("programs"));
@@ -45,31 +45,58 @@ function LeftSideBar() {
           <img alt="" src="/globaladmissions/images/sidebar/support.png" />
           <span>Support</span>
         </Item>
-      </div>
-    </div>
+      </MenuWrapper>
+    </BlogMenuContainer>
   );
-}
+};
 
-export default LeftSideBar;
+export default FloatingFooter;
+
+const MenuWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.05);
+`;
 
 const Item = styled.div`
+  width: 100px;
   cursor: pointer;
   padding: 10px 5px;
-  border-radius: 6px;
   margin: 1px 0px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  border-bottom: ${(props) =>
+    props.active
+      ? `3px solid
+    black`
+      : `none`};
   span {
     margin-left: 10px;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    color: ${(props) => (props.active ? `var(--bs-blue)` : `#475569`)};
+    font-size: 11px;
+    color: ${(props) => (props.active ? `blue` : `#475569`)};
+  }
+  img {
+    height: 20px;
   }
   &:hover {
     background: rgba(0, 0, 0, 0.03);
     span {
-      color: var(--bs-blue);
+      color: blue;
     }
+  }
+`;
+
+const BlogMenuContainer = styled.div`
+  display: none;
+  position: absolute;
+  top: 90;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: white;
+  @media (max-width: 800px) {
+    display: block;
   }
 `;

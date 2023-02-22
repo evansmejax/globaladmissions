@@ -7,7 +7,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Auth />}>
-          <Route path="/" element={<Blogs />} />
+          <Route path="/globaladmissions/" element={<Blogs />} />
         </Route>
       </Routes>
     </div>

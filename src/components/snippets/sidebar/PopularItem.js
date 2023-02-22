@@ -1,22 +1,17 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function PopularItem() {
+function PopularItem(props) {
   return (
     <div className="row">
       <Container className="col-12 py-1">
         <Item>
-          <Img
-            style={{ width: "30px", borderRadius: "50%" }}
-            src="/images/student.png"
-            alt=""
-          />
+          <Img src={props.data.image} alt="" />
           <ArticleItem>
-            <Link to="/">
-              <div>China Scholarship - The 2023 guide for students</div>
+            <Link to="/globaladmissions/">
+              <div>{props.data.title}</div>
             </Link>
-            <span>Nov 24 2023</span>
+            <span>{props.data.date}</span>
           </ArticleItem>
         </Item>
       </Container>
@@ -37,7 +32,7 @@ const ArticleItem = styled.div`
     color: #334155;
     font-size: 14px;
     &:hover {
-      color: blue;
+      color: var(--bs-blue);
     }
   }
 `;
@@ -51,8 +46,10 @@ const Item = styled.div`
 `;
 
 const Img = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  margin-right: 5px;
 `;
 
 export default PopularItem;

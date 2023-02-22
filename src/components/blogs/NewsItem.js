@@ -1,6 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-import { Card } from "@mui/material";
 
 function NewsItem(props) {
   return (
@@ -22,13 +20,13 @@ function NewsItem(props) {
           <SubTitle>{props.data.title}</SubTitle>
           <BottonSection>
             <ImageContainer>
-              <Img src="/images/student.png" alt="" />
+              <Img src={props.data.authorImg} alt="" />
             </ImageContainer>
             <AuthorDetail>
-              <span>{props.data.author}</span>
-              <span>
+              <AuthorSpan>{props.data.author}</AuthorSpan>
+              <DateSpan>
                 {props.data.date} . {props.data.length}
-              </span>
+              </DateSpan>
             </AuthorDetail>
           </BottonSection>
         </Wrapper>
@@ -39,19 +37,26 @@ function NewsItem(props) {
 
 export default NewsItem;
 
+const AuthorSpan = styled.span``;
+const DateSpan = styled.span``;
+
 const AuthorDetail = styled.div`
   span {
     display: block;
   }
   span:first-child {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
     color: #334155;
   }
   span:last-child {
+    font-family: "Inter";
+    font-style: normal;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px !important;
     line-height: 20px;
     color: #64748b;
   }
@@ -61,10 +66,12 @@ const ImageContainer = styled.div`
   box-sizing: border-box;
   width: 40px;
   height: 40px;
-  left: 12px;
-  top: 253px;
-  background: url(/images/student.png);
-  border: 1px solid rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
 `;
 
 const Title = styled.span``;
@@ -102,7 +109,7 @@ const ImageDiv = styled.div`
   }
 `;
 
-const Wrapper = styled(Card)`
+const Wrapper = styled.div`
   border-radius: 10px;
   box-shadow: none !important;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -121,19 +128,13 @@ const Wrapper = styled(Card)`
   .blogItem {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    padding: 5px 12px 6px;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
     width: 93px;
     height: 27px;
     background: #e0e7ff;
     border-radius: 40px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
     span {
-      width: 69px;
-      height: 16px;
       font-family: "Inter";
       font-style: normal;
       font-weight: 600;

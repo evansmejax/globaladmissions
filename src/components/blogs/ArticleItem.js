@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Card } from "@mui/material";
 
 function ArticleItem(props) {
   return (
@@ -20,9 +19,7 @@ function ArticleItem(props) {
           </Title>
           <SubTitle variant="body2">{props.data.title}</SubTitle>
           <BottonSection>
-            <ImageContainer>
-              <Img src="/images/student.png" alt="" />
-            </ImageContainer>
+            <ImageContainer></ImageContainer>
             <AuthorDetail>
               <span>{props.data.author}</span>
               <span>
@@ -50,45 +47,35 @@ const AuthorDetail = styled.div`
   }
   span:last-child {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 20px;
     color: #64748b;
   }
 `;
 
 const ImageContainer = styled.div`
-  box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  left: 12px;
-  top: 253px;
-  background: url(/images/student.png);
   border: 1px solid rgba(15, 23, 42, 0.05);
+  border-radius: 20px;
+  margin-right: 5px;
+  height: 40px;
+  width: 40px;
+  background-color: red;
+  background: url(/globaladmissions/images/student.png);
+  background-size: cover;
 `;
 
 const Title = styled.span``;
 const SubTitle = styled.div`
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  color: #334155;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
+  font-size: 18px;
+  line-height: 28px;
+  color: #0f172a;
 `;
 
 const BottonSection = styled.div`
   display: flex;
   font-size: 12px;
   margin: 4px 0px;
-`;
-
-const Img = styled.img`
-  height: 30px !important;
-  width: 30px !important;
-  border-radius: 50%;
 `;
 
 const BlogDiv = styled.div`
@@ -100,12 +87,10 @@ const ImageDiv = styled.div`
   height: 200px;
   border-radius: 20px;
   margin-bottom: 10px;
-  img {
-    height: 100px;
-  }
+  border: 1px solid rgba(0, 0, 0, 0.08);
 `;
 
-const Wrapper = styled(Card)`
+const Wrapper = styled.div`
   border-radius: 10px;
   box-shadow: none !important;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -124,19 +109,13 @@ const Wrapper = styled(Card)`
   .blogItem {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    padding: 5px 12px 6px;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
     width: 93px;
     height: 27px;
     background: #e0e7ff;
     border-radius: 40px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
     span {
-      width: 69px;
-      height: 16px;
       font-family: "Inter";
       font-style: normal;
       font-weight: 600;
@@ -150,6 +129,7 @@ const Wrapper = styled(Card)`
   }
   .case-study {
     background: #e0e7ff;
+    color: #1e40af;
     span {
       color: #3730a3;
     }
