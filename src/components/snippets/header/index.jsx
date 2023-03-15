@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Searchbar from "./searbar";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Searchbar from './searbar';
 function Header() {
   let navigate = useNavigate(0);
 
@@ -9,7 +9,7 @@ function Header() {
       <spanner className="d-block d-md-none">
         <img
           onClick={(e) => {
-            navigate("/globaladmissions/");
+            navigate('/globaladmissions/');
           }}
           alt="logo"
           src="/globaladmissions/images/small.png"
@@ -18,7 +18,7 @@ function Header() {
       <spanner className="d-none d-md-block">
         <img
           onClick={(e) => {
-            navigate("/globaladmissions/");
+            navigate('/globaladmissions/');
           }}
           alt="logo"
           src="/globaladmissions/images/logo.png"
@@ -31,7 +31,7 @@ function Header() {
 
       <AccountImage className="d-none d-md-block">
         <img
-          style={{ height: "25px", width: "25px" }}
+          style={{ height: '25px', width: '25px' }}
           alt="logo"
           src="/globaladmissions/images/user.png"
         />

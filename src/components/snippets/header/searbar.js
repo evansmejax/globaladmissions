@@ -1,29 +1,29 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 function Searchbar() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [activeCount, setActiveCount] = useState(0);
   const [count, setCount] = useState(877777);
   const [categories] = useState([
     {
-      name: "Programs",
-      img: "/globaladmissions/images/dropdown/university.png",
+      name: 'Programs',
+      img: '/globaladmissions/images/dropdown/university.png',
     },
-    { name: "Blog", img: "/globaladmissions/images/sidebar/guide.png" },
+    { name: 'Blog', img: '/globaladmissions/images/sidebar/guide.png' },
     {
-      name: "University",
-      img: "/globaladmissions/images/sidebar/search.png",
-    },
-    {
-      name: "Applications",
-      img: "/globaladmissions/images/sidebar/application.png",
+      name: 'University',
+      img: '/globaladmissions/images/sidebar/search.png',
     },
     {
-      name: "Support",
-      img: "/globaladmissions/images/sidebar/support.png",
+      name: 'Applications',
+      img: '/globaladmissions/images/sidebar/application.png',
+    },
+    {
+      name: 'Support',
+      img: '/globaladmissions/images/sidebar/support.png',
     },
   ]);
   function handSearch() {
@@ -32,11 +32,11 @@ function Searchbar() {
       search_query: search,
     };
     const options = {
-      pathname: "/globaladmissions/",
+      pathname: '/globaladmissions/',
       search: `?${createSearchParams(params)}`,
     };
     navigate(options, { replace: true });
-    setSearch("");
+    setSearch('');
   }
   function increment() {
     let newCount = count + 1;
@@ -56,7 +56,7 @@ function Searchbar() {
         <SearchMenu>
           <span>
             <span className="d-none d-md-block">
-              {categories[activeCount].name}{" "}
+              {categories[activeCount].name}{' '}
             </span>
             <span className="d-block d-md-none">
               <img className="" alt="" src={categories[activeCount].img} />
@@ -95,7 +95,7 @@ function Searchbar() {
           onClick={(e) => {
             handSearch();
           }}
-          style={{ height: "20px", width: "20px", marginLeft: "-30px" }}
+          style={{ height: '20px', width: '20px', marginLeft: '-30px' }}
           alt="logo"
           src="/globaladmissions/images/search/search.png"
         />

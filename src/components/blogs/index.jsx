@@ -1,21 +1,21 @@
-import styled from "styled-components";
-import ArticleItem from "./ArticleItem";
-import NewsItem from "./NewsItem";
-import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
+import ArticleItem from './ArticleItem';
+import NewsItem from './NewsItem';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectActiveBlogCategories,
   setActiveBlogCategories,
-} from "features/activeBlogCategoriesSlice";
-import { slice } from "lodash";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useEffect, useState } from "react";
-import newslist from "mockup/news";
-import articleslist from "mockup/articles";
-import lessnewslist from "mockup/lessnewslist";
-import categorieslist from "mockup/categories";
-import ScrollToTop from "components/snippets/footer/ScrollToTop";
-import RightSideBar from "components/snippets/sidebar/RightSidebar";
-import QuickMenu from "./QuickMenu";
+} from 'features/activeBlogCategoriesSlice';
+import { slice } from 'lodash';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { useEffect, useState } from 'react';
+import newslist from 'mockup/news';
+import articleslist from 'mockup/articles';
+import lessnewslist from 'mockup/lessnewslist';
+import categorieslist from 'mockup/categories';
+import ScrollToTop from 'components/snippets/footer/ScrollToTop';
+import RightSideBar from 'components/snippets/sidebar/RightSidebar';
+import QuickMenu from './QuickMenu';
 
 const MoreHorizIconCustom = styled(MoreHorizIcon)`
   cursor: pointer;
@@ -237,41 +237,41 @@ function Blogs() {
           <CategoryBar>
             <Category
               onClick={(e) => {
-                handleToggleActiveCategory("case-study");
+                handleToggleActiveCategory('case-study');
               }}
-              active={activeCategories.includes("case-study")}
+              active={activeCategories.includes('case-study')}
             >
               Case Study
             </Category>
             <Category
               onClick={(e) => {
-                handleToggleActiveCategory("programs");
+                handleToggleActiveCategory('programs');
               }}
-              active={activeCategories.includes("programs")}
+              active={activeCategories.includes('programs')}
             >
               Programs
             </Category>
             <Category
               onClick={(e) => {
-                handleToggleActiveCategory("mbbs");
+                handleToggleActiveCategory('mbbs');
               }}
-              active={activeCategories.includes("mbbs")}
+              active={activeCategories.includes('mbbs')}
             >
               Mbbs
             </Category>
             <Category
               onClick={(e) => {
-                handleToggleActiveCategory("mba");
+                handleToggleActiveCategory('mba');
               }}
-              active={activeCategories.includes("mba")}
+              active={activeCategories.includes('mba')}
             >
               Mba
             </Category>
             <Category
               onClick={(e) => {
-                handleToggleActiveCategory("universities");
+                handleToggleActiveCategory('universities');
               }}
-              active={activeCategories.includes("universities")}
+              active={activeCategories.includes('universities')}
             >
               Universities
             </Category>
@@ -329,7 +329,7 @@ function Blogs() {
                     </LeftSection>
                   </span>
 
-                  <Btn style={{ textTransform: "capitalize" }}>Apply Now</Btn>
+                  <Btn style={{ textTransform: 'capitalize' }}>Apply Now</Btn>
                 </CovidBlock>
                 <SchoolIconsWrapper></SchoolIconsWrapper>
 
@@ -380,7 +380,7 @@ const LowerPart = styled.div`
   }
 `;
 const UpperPart = styled.div`
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -447,7 +447,7 @@ const CovidBlock = styled.div`
   position: relative;
   width: 100%;
   padding: 20px;
-  background: url("/globaladmissions/images/slides/slide1.png");
+  background: url('/globaladmissions/images/slides/slide1.png');
   background-size: cover;
   border-radius: 30px;
   display: flex;
